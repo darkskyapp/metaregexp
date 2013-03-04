@@ -1,0 +1,16 @@
+{
+  "name": "metaregexp",
+  "version": "1.0.0",
+  "description": "simple way to keep long regexes organized",
+  "author": {
+    "name": "The Dark Sky Company, LLC",
+    "email": "support@darkskyapp.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/darkskyapp/metaregexp.git"
+  },
+  "devDependencies": {
+    "jasmine-node": "1.3.x"
+  }
+}

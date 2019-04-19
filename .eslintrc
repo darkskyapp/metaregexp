@@ -1,0 +1,6 @@
+{
+  "extends": "@darkskyapp",
+  "rules": {
+    "max-len": [2, 120]
+  }
+}

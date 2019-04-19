@@ -1,31 +1,28 @@
-var MetaRegExp;
+"use strict";
 
-(function() {
-  "use strict";
-
-  MetaRegExp = {
-    compile: function(str, flags, opts) {
-      if(opts === undefined) {
-        opts  = flags;
-        flags = undefined;
-      }
-
-      return new RegExp(MetaRegExp.substitute(str, opts), flags);
-    },
-    substitute: function(str, opts) {
-      return str.replace(/%(?:%|\w+)/g, function(str) {
-        if(str === "%%")
-          return "%";
-
-        var name = str.slice(1);
-
-        return opts.hasOwnProperty(name) ?
-          MetaRegExp.substitute(opts[name], opts) :
-          str;
-      });
+function substitute(str, opts) {
+  return str.replace(/%(?:%|\w+)/g, str => {
+    if(str === "%%") {
+      return "%";
     }
-  };
 
-  if(typeof module !== "undefined")
-    module.exports = MetaRegExp;
-}());
+    const name = str.slice(1);
+    if(!(name in opts)) {
+      return str;
+    }
+
+    return substitute(opts[name], opts);
+  });
+}
+
+function compile(str, flags, opts) {
+  if(opts === undefined) {
+    opts = flags;
+    flags = undefined;
+  }
+
+  return new RegExp(substitute(str, opts), flags);
+}
+
+exports.substitute = substitute;
+exports.compile = compile;
